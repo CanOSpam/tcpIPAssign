@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'Client.ui'
 **
-** Created by: Qt User Interface Compiler version 5.6.2
+** Created by: Qt User Interface Compiler version 5.6.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -217,25 +217,25 @@ public:
 
     void retranslateUi(QWidget *Client)
     {
-        Client->setWindowTitle(QApplication::translate("Client", "Client", 0));
-        label_5->setText(QApplication::translate("Client", "Protocol", 0));
+        Client->setWindowTitle(QApplication::translate("Client", "Client", Q_NULLPTR));
+        label_5->setText(QApplication::translate("Client", "Protocol", Q_NULLPTR));
         comboBox->clear();
         comboBox->insertItems(0, QStringList()
-         << QApplication::translate("Client", "TCP", 0)
-         << QApplication::translate("Client", "UDP", 0)
+         << QApplication::translate("Client", "TCP", Q_NULLPTR)
+         << QApplication::translate("Client", "UDP", Q_NULLPTR)
         );
-        label_2->setText(QApplication::translate("Client", "Size of each packet in bytes :", 0));
-        lineEdit_2->setText(QApplication::translate("Client", "1", 0));
-        label->setText(QApplication::translate("Client", "Packets to send :", 0));
-        lineEdit->setText(QApplication::translate("Client", "1", 0));
-        label_3->setText(QApplication::translate("Client", "File to send from", 0));
-        pickFileButton->setText(QApplication::translate("Client", "Pick File", 0));
-        label_7->setText(QApplication::translate("Client", "Port", 0));
-        lineEdit_4->setText(QApplication::translate("Client", "0000", 0));
-        label_6->setText(QApplication::translate("Client", "Destination", 0));
-        lineEdit_3->setText(QApplication::translate("Client", "000.000.000.000", 0));
-        sendProgress->setFormat(QApplication::translate("Client", "%p%", 0));
-        pushButton->setText(QApplication::translate("Client", "Send", 0));
+        label_2->setText(QApplication::translate("Client", "Size of each packet in bytes :", Q_NULLPTR));
+        lineEdit_2->setText(QApplication::translate("Client", "1", Q_NULLPTR));
+        label->setText(QApplication::translate("Client", "Packets to send :", Q_NULLPTR));
+        lineEdit->setText(QApplication::translate("Client", "1", Q_NULLPTR));
+        label_3->setText(QApplication::translate("Client", "File to send from", Q_NULLPTR));
+        pickFileButton->setText(QApplication::translate("Client", "Pick File", Q_NULLPTR));
+        label_7->setText(QApplication::translate("Client", "Port", Q_NULLPTR));
+        lineEdit_4->setText(QApplication::translate("Client", "0000", Q_NULLPTR));
+        label_6->setText(QApplication::translate("Client", "Destination", Q_NULLPTR));
+        lineEdit_3->setText(QApplication::translate("Client", "000.000.000.000", Q_NULLPTR));
+        sendProgress->setFormat(QApplication::translate("Client", "%p%", Q_NULLPTR));
+        pushButton->setText(QApplication::translate("Client", "Send", Q_NULLPTR));
     } // retranslateUi
 
 };

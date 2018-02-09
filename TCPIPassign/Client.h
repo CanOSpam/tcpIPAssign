@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QUdpSocket>
 
 #include "ui_Client.h"
 
@@ -16,6 +17,7 @@ public:
 private:
 	Ui::Client *ui;
 	QString fileName;
+	QUdpSocket *udpSocket;
 
 
 	void pickAFile();

@@ -40,3 +40,4 @@ void Client::pickAFile()
 		"",
 		tr("Text data (*.txt)"));
 }
+

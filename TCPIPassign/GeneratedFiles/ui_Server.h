@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'Server.ui'
 **
-** Created by: Qt User Interface Compiler version 5.6.2
+** Created by: Qt User Interface Compiler version 5.6.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -149,21 +149,21 @@ public:
 
     void retranslateUi(QWidget *Server)
     {
-        Server->setWindowTitle(QApplication::translate("Server", "Server", 0));
-        label_5->setText(QApplication::translate("Server", "Protocol", 0));
+        Server->setWindowTitle(QApplication::translate("Server", "Server", Q_NULLPTR));
+        label_5->setText(QApplication::translate("Server", "Protocol", Q_NULLPTR));
         comboBox->clear();
         comboBox->insertItems(0, QStringList()
-         << QApplication::translate("Server", "TCP", 0)
-         << QApplication::translate("Server", "UDP", 0)
+         << QApplication::translate("Server", "TCP", Q_NULLPTR)
+         << QApplication::translate("Server", "UDP", Q_NULLPTR)
         );
-        label_3->setText(QApplication::translate("Server", "File to Save to", 0));
-        pickFileButton->setText(QApplication::translate("Server", "Pick File", 0));
-        label_7->setText(QApplication::translate("Server", "Port", 0));
-        lineEdit_4->setText(QApplication::translate("Server", "0000", 0));
-        label_6->setText(QApplication::translate("Server", "Receive From", 0));
-        lineEdit_3->setText(QApplication::translate("Server", "000.000.000.000", 0));
-        stopButton->setText(QApplication::translate("Server", "Start Listening", 0));
-        pushButton_3->setText(QApplication::translate("Server", "Stop Listening", 0));
+        label_3->setText(QApplication::translate("Server", "File to Save to", Q_NULLPTR));
+        pickFileButton->setText(QApplication::translate("Server", "Pick File", Q_NULLPTR));
+        label_7->setText(QApplication::translate("Server", "Port", Q_NULLPTR));
+        lineEdit_4->setText(QApplication::translate("Server", "0000", Q_NULLPTR));
+        label_6->setText(QApplication::translate("Server", "Receive From", Q_NULLPTR));
+        lineEdit_3->setText(QApplication::translate("Server", "000.000.000.000", Q_NULLPTR));
+        stopButton->setText(QApplication::translate("Server", "Start Listening", Q_NULLPTR));
+        pushButton_3->setText(QApplication::translate("Server", "Stop Listening", Q_NULLPTR));
     } // retranslateUi
 
 };

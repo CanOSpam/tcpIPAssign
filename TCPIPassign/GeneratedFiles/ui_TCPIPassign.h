@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'TCPIPassign.ui'
 **
-** Created by: Qt User Interface Compiler version 5.6.2
+** Created by: Qt User Interface Compiler version 5.6.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -74,14 +74,14 @@ public:
 
     void retranslateUi(QMainWindow *TCPIPassignClass)
     {
-        TCPIPassignClass->setWindowTitle(QApplication::translate("TCPIPassignClass", "TCPIPassign", 0));
-        label_7->setText(QApplication::translate("TCPIPassignClass", "Host type", 0));
+        TCPIPassignClass->setWindowTitle(QApplication::translate("TCPIPassignClass", "TCPIPassign", Q_NULLPTR));
+        label_7->setText(QApplication::translate("TCPIPassignClass", "Host type", Q_NULLPTR));
         hostSelectCombo->clear();
         hostSelectCombo->insertItems(0, QStringList()
-         << QApplication::translate("TCPIPassignClass", "Server", 0)
-         << QApplication::translate("TCPIPassignClass", "Client", 0)
+         << QApplication::translate("TCPIPassignClass", "Server", Q_NULLPTR)
+         << QApplication::translate("TCPIPassignClass", "Client", Q_NULLPTR)
         );
-        startServerButton->setText(QApplication::translate("TCPIPassignClass", "Start", 0));
+        startServerButton->setText(QApplication::translate("TCPIPassignClass", "Start", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -2,6 +2,8 @@
 
 #include <QWidget>
 #include <QFileDialog>
+#include <QtNetwork>
+#include <QDebug>
 
 #include "ui_Server.h"
 
@@ -15,7 +17,10 @@ public:
 private:
 	Ui::Server *ui;
 	QString fileName;
+	QUdpSocket *udpSocket;
 
 
 	void pickAFile();
+	void initSocket();
+	void readPendingDatagrams();
 };
