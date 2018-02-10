@@ -13,6 +13,8 @@ Server::Server(QWidget *parent)
 }
 
 
+
+
 void Server::pickAFile()
 {
 	fileName = QFileDialog::getSaveFileName(this, tr("Save Where?"),
@@ -30,14 +32,24 @@ void Server::initSocket()
 	connect(udpSocket, &QUdpSocket::readyRead,
 		this,&Server::readPendingDatagrams);
 
+	udpSocket->writeDatagram("test", 5, QHostAddress::LocalHost, 7755);
 
-	udpSocket->write("test");
+	//connect(udpSocket, &QUdpSocket::connected,
+	//	this, &Server::sendData);
+
+	//udpSocket->connectToHost("localhost", 7755);
+}
+
+void Server::sendData()
+{
+	//udpSocket->write("test");
 }
 
 void Server::readPendingDatagrams()
 {
 	while (udpSocket->hasPendingDatagrams()) {
-		QByteArray temp = udpSocket->readAll();
+		char temp[5];
+		udpSocket->readDatagram(temp, 5);
 		qDebug() << temp;
 	}
 }

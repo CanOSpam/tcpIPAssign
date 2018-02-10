@@ -19,7 +19,7 @@ private:
 	QString fileName;
 	QUdpSocket *udpSocket;
 
-
+	void sendData();
 	void pickAFile();
 	void initSocket();
 	void readPendingDatagrams();
