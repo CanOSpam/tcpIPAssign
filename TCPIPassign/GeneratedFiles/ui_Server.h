@@ -38,13 +38,13 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QVBoxLayout *verticalLayout_7;
     QLabel *label_7;
-    QLineEdit *lineEdit_4;
+    QLineEdit *portEdit;
     QVBoxLayout *verticalLayout_6;
     QLabel *label_6;
-    QLineEdit *lineEdit_3;
+    QLineEdit *ipEdit;
     QHBoxLayout *horizontalLayout_2;
+    QPushButton *startButton;
     QPushButton *stopButton;
-    QPushButton *pushButton_3;
 
     void setupUi(QWidget *Server)
     {
@@ -100,10 +100,10 @@ public:
 
         verticalLayout_7->addWidget(label_7);
 
-        lineEdit_4 = new QLineEdit(Server);
-        lineEdit_4->setObjectName(QStringLiteral("lineEdit_4"));
+        portEdit = new QLineEdit(Server);
+        portEdit->setObjectName(QStringLiteral("portEdit"));
 
-        verticalLayout_7->addWidget(lineEdit_4);
+        verticalLayout_7->addWidget(portEdit);
 
 
         horizontalLayout_3->addLayout(verticalLayout_7);
@@ -115,10 +115,10 @@ public:
 
         verticalLayout_6->addWidget(label_6);
 
-        lineEdit_3 = new QLineEdit(Server);
-        lineEdit_3->setObjectName(QStringLiteral("lineEdit_3"));
+        ipEdit = new QLineEdit(Server);
+        ipEdit->setObjectName(QStringLiteral("ipEdit"));
 
-        verticalLayout_6->addWidget(lineEdit_3);
+        verticalLayout_6->addWidget(ipEdit);
 
 
         horizontalLayout_3->addLayout(verticalLayout_6);
@@ -128,15 +128,15 @@ public:
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        startButton = new QPushButton(Server);
+        startButton->setObjectName(QStringLiteral("startButton"));
+
+        horizontalLayout_2->addWidget(startButton);
+
         stopButton = new QPushButton(Server);
         stopButton->setObjectName(QStringLiteral("stopButton"));
 
         horizontalLayout_2->addWidget(stopButton);
-
-        pushButton_3 = new QPushButton(Server);
-        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-
-        horizontalLayout_2->addWidget(pushButton_3);
 
 
         verticalLayout->addLayout(horizontalLayout_2);
@@ -159,11 +159,11 @@ public:
         label_3->setText(QApplication::translate("Server", "File to Save to", Q_NULLPTR));
         pickFileButton->setText(QApplication::translate("Server", "Pick File", Q_NULLPTR));
         label_7->setText(QApplication::translate("Server", "Port", Q_NULLPTR));
-        lineEdit_4->setText(QApplication::translate("Server", "0000", Q_NULLPTR));
+        portEdit->setText(QApplication::translate("Server", "0000", Q_NULLPTR));
         label_6->setText(QApplication::translate("Server", "Receive From", Q_NULLPTR));
-        lineEdit_3->setText(QApplication::translate("Server", "000.000.000.000", Q_NULLPTR));
-        stopButton->setText(QApplication::translate("Server", "Start Listening", Q_NULLPTR));
-        pushButton_3->setText(QApplication::translate("Server", "Stop Listening", Q_NULLPTR));
+        ipEdit->setText(QApplication::translate("Server", "000.000.000.000", Q_NULLPTR));
+        startButton->setText(QApplication::translate("Server", "Start Listening", Q_NULLPTR));
+        stopButton->setText(QApplication::translate("Server", "Stop Listening", Q_NULLPTR));
     } // retranslateUi
 
 };

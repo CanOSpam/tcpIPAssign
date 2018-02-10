@@ -2,8 +2,9 @@
 
 #include <QWidget>
 #include <QFileDialog>
+#include <QtNetwork>
+
 #include <QMessageBox>
-#include <QUdpSocket>
 
 #include "ui_Client.h"
 

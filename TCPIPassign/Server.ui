@@ -82,7 +82,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_4">
+        <widget class="QLineEdit" name="portEdit">
          <property name="text">
           <string>0000</string>
          </property>
@@ -100,7 +100,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_3">
+        <widget class="QLineEdit" name="ipEdit">
          <property name="text">
           <string>000.000.000.000</string>
          </property>
@@ -113,14 +113,14 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QPushButton" name="stopButton">
+      <widget class="QPushButton" name="startButton">
        <property name="text">
         <string>Start Listening</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="stopButton">
        <property name="text">
         <string>Stop Listening</string>
        </property>

@@ -8,8 +8,12 @@ Server::Server(QWidget *parent)
 {
 	ui->setupUi(this);
 
+
+	udpSocketExists = false;
+
 	connect(ui->pickFileButton, &QPushButton::clicked, this, &Server::pickAFile);
-	initSocket();
+	connect(ui->startButton, &QPushButton::clicked, this, &Server::startListening);
+	connect(ui->stopButton, &QPushButton::clicked, this, &Server::stopListening);
 }
 
 
@@ -27,29 +31,47 @@ void Server::pickAFile()
 void Server::initSocket()
 {
 	udpSocket = new QUdpSocket(this);
-	udpSocket->bind(QHostAddress::LocalHost, 7755);
+	udpSocket->bind(QHostAddress(ui->ipEdit->text()), ui->portEdit->text().toInt());
 
-	connect(udpSocket, &QUdpSocket::readyRead,
-		this,&Server::readPendingDatagrams);
-
-	udpSocket->writeDatagram("test", 5, QHostAddress::LocalHost, 7755);
-
-	//connect(udpSocket, &QUdpSocket::connected,
-	//	this, &Server::sendData);
-
-	//udpSocket->connectToHost("localhost", 7755);
+	udpSocket->writeDatagram("test", 5, QHostAddress(ui->ipEdit->text()), ui->portEdit->text().toInt());
 }
 
-void Server::sendData()
-{
-	//udpSocket->write("test");
-}
+
 
 void Server::readPendingDatagrams()
 {
 	while (udpSocket->hasPendingDatagrams()) {
 		char temp[5];
 		udpSocket->readDatagram(temp, 5);
-		qDebug() << temp;
+
+		QMessageBox msgBox;
+		msgBox.setText(temp);
+		msgBox.setWindowTitle("Sending Done");
+		msgBox.exec();
+	}
+}
+
+void Server::startListening()
+{
+	if (!udpSocketExists)
+	{
+		initSocket();
+
+		connect(udpSocket, &QUdpSocket::readyRead,
+			this, &Server::readPendingDatagrams);
+
+		udpSocketExists = true;
+	}
+}
+
+void Server::stopListening()
+{
+	if (udpSocketExists)
+	{
+		disconnect(udpSocket, &QUdpSocket::readyRead,
+			this, &Server::readPendingDatagrams);
+
+		delete udpSocket;
+		udpSocketExists = false;
 	}
 }
