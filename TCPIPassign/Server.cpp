@@ -32,7 +32,7 @@ void Server::pickAFile()
 void Server::initUdpSocket()
 {
 	udpSocket = new QUdpSocket(this);
-	udpSocket->bind(QHostAddress(ui->ipEdit->text()), ui->portEdit->text().toInt());
+	udpSocket->bind(QHostAddress::Any, ui->portEdit->text().toInt());
 }
 
 
@@ -41,7 +41,7 @@ void Server::readPendingDatagrams()
 {
 	
 	std::ofstream inputFile;
-	inputFile.open(fileName.toStdString());
+	inputFile.open(fileName.toStdString(), std::ios_base::app);
 
 	if (inputFile.is_open())
 	{
@@ -54,11 +54,8 @@ void Server::readPendingDatagrams()
 			//WRITE TO FILE
 			inputFile << inputBuffer;
 
-
 			delete inputBuffer;
 		}
-
-		inputFile.close();
 	}
 	else
 	{
@@ -68,6 +65,7 @@ void Server::readPendingDatagrams()
 		msgBox.setWindowTitle("FILE ERROR");
 		msgBox.exec();
 	}
+	inputFile.close();
 }
 
 void Server::startListening()
