@@ -40,9 +40,9 @@ public:
     QVBoxLayout *verticalLayout_2;
     QSpacerItem *verticalSpacer_2;
     QLabel *label_2;
-    QLineEdit *lineEdit_2;
+    QLineEdit *bytesPerPacketEdit;
     QLabel *label;
-    QLineEdit *lineEdit;
+    QLineEdit *numPacketsEdit;
     QSpacerItem *verticalSpacer_8;
     QVBoxLayout *verticalLayout_4;
     QSpacerItem *verticalSpacer_6;
@@ -53,12 +53,12 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QVBoxLayout *verticalLayout_7;
     QLabel *label_7;
-    QLineEdit *lineEdit_4;
+    QLineEdit *portEdit;
     QVBoxLayout *verticalLayout_6;
     QLabel *label_6;
-    QLineEdit *lineEdit_3;
+    QLineEdit *ipEdit;
     QProgressBar *sendProgress;
-    QPushButton *pushButton;
+    QPushButton *sendButton;
 
     void setupUi(QWidget *Client)
     {
@@ -105,20 +105,20 @@ public:
 
         verticalLayout_2->addWidget(label_2);
 
-        lineEdit_2 = new QLineEdit(Client);
-        lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
+        bytesPerPacketEdit = new QLineEdit(Client);
+        bytesPerPacketEdit->setObjectName(QStringLiteral("bytesPerPacketEdit"));
 
-        verticalLayout_2->addWidget(lineEdit_2);
+        verticalLayout_2->addWidget(bytesPerPacketEdit);
 
         label = new QLabel(Client);
         label->setObjectName(QStringLiteral("label"));
 
         verticalLayout_2->addWidget(label);
 
-        lineEdit = new QLineEdit(Client);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
+        numPacketsEdit = new QLineEdit(Client);
+        numPacketsEdit->setObjectName(QStringLiteral("numPacketsEdit"));
 
-        verticalLayout_2->addWidget(lineEdit);
+        verticalLayout_2->addWidget(numPacketsEdit);
 
         verticalSpacer_8 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
@@ -170,10 +170,10 @@ public:
 
         verticalLayout_7->addWidget(label_7);
 
-        lineEdit_4 = new QLineEdit(Client);
-        lineEdit_4->setObjectName(QStringLiteral("lineEdit_4"));
+        portEdit = new QLineEdit(Client);
+        portEdit->setObjectName(QStringLiteral("portEdit"));
 
-        verticalLayout_7->addWidget(lineEdit_4);
+        verticalLayout_7->addWidget(portEdit);
 
 
         horizontalLayout_2->addLayout(verticalLayout_7);
@@ -185,10 +185,10 @@ public:
 
         verticalLayout_6->addWidget(label_6);
 
-        lineEdit_3 = new QLineEdit(Client);
-        lineEdit_3->setObjectName(QStringLiteral("lineEdit_3"));
+        ipEdit = new QLineEdit(Client);
+        ipEdit->setObjectName(QStringLiteral("ipEdit"));
 
-        verticalLayout_6->addWidget(lineEdit_3);
+        verticalLayout_6->addWidget(ipEdit);
 
 
         horizontalLayout_2->addLayout(verticalLayout_6);
@@ -204,10 +204,10 @@ public:
 
         verticalLayout->addWidget(sendProgress);
 
-        pushButton = new QPushButton(Client);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
+        sendButton = new QPushButton(Client);
+        sendButton->setObjectName(QStringLiteral("sendButton"));
 
-        verticalLayout->addWidget(pushButton);
+        verticalLayout->addWidget(sendButton);
 
 
         retranslateUi(Client);
@@ -225,17 +225,17 @@ public:
          << QApplication::translate("Client", "UDP", Q_NULLPTR)
         );
         label_2->setText(QApplication::translate("Client", "Size of each packet in bytes :", Q_NULLPTR));
-        lineEdit_2->setText(QApplication::translate("Client", "1", Q_NULLPTR));
+        bytesPerPacketEdit->setText(QApplication::translate("Client", "16", Q_NULLPTR));
         label->setText(QApplication::translate("Client", "Packets to send :", Q_NULLPTR));
-        lineEdit->setText(QApplication::translate("Client", "1", Q_NULLPTR));
+        numPacketsEdit->setText(QApplication::translate("Client", "1", Q_NULLPTR));
         label_3->setText(QApplication::translate("Client", "File to send from", Q_NULLPTR));
         pickFileButton->setText(QApplication::translate("Client", "Pick File", Q_NULLPTR));
         label_7->setText(QApplication::translate("Client", "Port", Q_NULLPTR));
-        lineEdit_4->setText(QApplication::translate("Client", "0000", Q_NULLPTR));
+        portEdit->setText(QApplication::translate("Client", "5570", Q_NULLPTR));
         label_6->setText(QApplication::translate("Client", "Destination", Q_NULLPTR));
-        lineEdit_3->setText(QApplication::translate("Client", "000.000.000.000", Q_NULLPTR));
+        ipEdit->setText(QApplication::translate("Client", "127.0.0.1", Q_NULLPTR));
         sendProgress->setFormat(QApplication::translate("Client", "%p%", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("Client", "Send", Q_NULLPTR));
+        sendButton->setText(QApplication::translate("Client", "Send", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -4,6 +4,8 @@
 #include <QFileDialog>
 #include <QtNetwork>
 
+#include <fstream>
+
 #include <QMessageBox>
 
 #include "ui_Client.h"
@@ -19,7 +21,10 @@ private:
 	Ui::Client *ui;
 	QString fileName;
 	QUdpSocket *udpSocket;
-
+	bool filePicked;
 
 	void pickAFile();
+	void initUdpSocket();
+	void sendFile();
+	int filesize(const char * filename);
 };

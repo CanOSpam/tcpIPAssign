@@ -96,9 +96,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_2">
+        <widget class="QLineEdit" name="bytesPerPacketEdit">
          <property name="text">
-          <string>1</string>
+          <string>16</string>
          </property>
         </widget>
        </item>
@@ -110,7 +110,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit">
+        <widget class="QLineEdit" name="numPacketsEdit">
          <property name="text">
           <string>1</string>
          </property>
@@ -199,9 +199,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_4">
+        <widget class="QLineEdit" name="portEdit">
          <property name="text">
-          <string>0000</string>
+          <string>5570</string>
          </property>
         </widget>
        </item>
@@ -217,9 +217,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_3">
+        <widget class="QLineEdit" name="ipEdit">
          <property name="text">
-          <string>000.000.000.000</string>
+          <string>127.0.0.1</string>
          </property>
         </widget>
        </item>
@@ -244,7 +244,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="sendButton">
      <property name="text">
       <string>Send</string>
      </property>

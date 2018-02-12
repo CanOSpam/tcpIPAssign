@@ -1,5 +1,7 @@
 #include "Client.h"
 
+
+#include <QDebug>
 //The Client sends data
 
 /*
@@ -29,15 +31,77 @@ Client::Client(QWidget *parent)
 {
 	ui->setupUi(this);
 
+	filePicked = false;
+
 	connect(ui->pickFileButton, &QPushButton::clicked, this, &Client::pickAFile);
+	connect(ui->sendButton, &QPushButton::clicked, this, &Client::sendFile);
 }
 
 void Client::pickAFile()
 {
-	
-
 	fileName = QFileDialog::getOpenFileName(this, tr("Open"),
 		"",
 		tr("Text data (*.txt)"));
+	filePicked = true;
 }
 
+void Client::initUdpSocket()
+{
+	udpSocket = new QUdpSocket(this);
+	udpSocket->bind(QHostAddress(ui->ipEdit->text()), ui->portEdit->text().toInt());
+}
+
+void Client::sendFile()
+{
+	if (filePicked)
+	{
+		initUdpSocket();
+		ui->sendProgress->setValue(0);
+
+		std::ifstream inputFile;
+		inputFile.open(fileName.toStdString());
+		float bufferSize = ui->bytesPerPacketEdit->text().toInt();
+		float fileSize = filesize(fileName.toStdString().c_str());
+		fileSize *= ui->numPacketsEdit->text().toInt();
+
+		int dataSent = 0;
+
+
+		while (inputFile.good())
+		{
+			char * sendBuffer = new char[bufferSize];
+			memset(sendBuffer, '\0', bufferSize);
+			inputFile.read(sendBuffer, bufferSize - 1);
+
+			for (int i = 0; i < ui->numPacketsEdit->text().toInt(); i++)
+			{
+				qDebug() << udpSocket->writeDatagram(sendBuffer, bufferSize, QHostAddress(ui->ipEdit->text()), ui->portEdit->text().toInt());
+				dataSent += bufferSize - 1;
+				ui->sendProgress->setValue((dataSent / fileSize) * 100);
+			}
+
+			delete sendBuffer;
+		}
+
+
+		ui->sendProgress->setValue(100);
+		delete udpSocket;
+	}
+	else
+	{
+		QMessageBox msgBox;
+		msgBox.setIcon(QMessageBox::Warning);
+		msgBox.setText("Pick a file to save to first.");
+		msgBox.setWindowTitle("Warning");
+		msgBox.exec();
+	}
+	
+}
+
+//From https://stackoverflow.com/questions/5840148/how-can-i-get-a-files-size-in-c
+//Author: Spyros, Editor: tmanthey
+int Client::filesize(const char* filename)
+{
+	std::ifstream in(filename, std::ifstream::ate | std::ifstream::binary);
+	return in.tellg();
+}

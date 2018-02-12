@@ -5,6 +5,9 @@
 #include <QtNetwork>
 #include <QDebug>
 
+#include <fstream>
+#include <thread> 
+
 #include <QMessageBox>
 
 #include "ui_Server.h"
@@ -21,9 +24,10 @@ private:
 	QString fileName;
 	QUdpSocket *udpSocket;
 	bool udpSocketExists;
+	bool filePicked;
 
 	void pickAFile();
-	void initSocket();
+	void initUdpSocket();
 	void readPendingDatagrams();
 	void startListening();
 	void stopListening();

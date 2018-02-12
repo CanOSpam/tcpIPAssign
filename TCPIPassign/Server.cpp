@@ -10,6 +10,7 @@ Server::Server(QWidget *parent)
 
 
 	udpSocketExists = false;
+	filePicked = false;
 
 	connect(ui->pickFileButton, &QPushButton::clicked, this, &Server::pickAFile);
 	connect(ui->startButton, &QPushButton::clicked, this, &Server::startListening);
@@ -24,43 +25,76 @@ void Server::pickAFile()
 	fileName = QFileDialog::getSaveFileName(this, tr("Save Where?"),
 		"",
 		tr("Text data (*.txt)"));
-
+	filePicked = true;
 }
 
 
-void Server::initSocket()
+void Server::initUdpSocket()
 {
 	udpSocket = new QUdpSocket(this);
 	udpSocket->bind(QHostAddress(ui->ipEdit->text()), ui->portEdit->text().toInt());
-
-	udpSocket->writeDatagram("test", 5, QHostAddress(ui->ipEdit->text()), ui->portEdit->text().toInt());
 }
 
 
 
 void Server::readPendingDatagrams()
 {
-	while (udpSocket->hasPendingDatagrams()) {
-		char temp[5];
-		udpSocket->readDatagram(temp, 5);
+	
+	std::ofstream inputFile;
+	inputFile.open(fileName.toStdString());
 
+	if (inputFile.is_open())
+	{
+		while (udpSocket->hasPendingDatagrams()) {
+			int incomingSize = udpSocket->pendingDatagramSize();
+			char* inputBuffer = new char[incomingSize];
+
+			udpSocket->readDatagram(inputBuffer,incomingSize);
+
+			//WRITE TO FILE
+			inputFile << inputBuffer;
+
+
+			delete inputBuffer;
+		}
+
+		inputFile.close();
+	}
+	else
+	{
 		QMessageBox msgBox;
-		msgBox.setText(temp);
-		msgBox.setWindowTitle("Sending Done");
+		msgBox.setIcon(QMessageBox::Critical);
+		msgBox.setText("Error opening file.");
+		msgBox.setWindowTitle("FILE ERROR");
 		msgBox.exec();
 	}
 }
 
 void Server::startListening()
 {
-	if (!udpSocketExists)
+	if (filePicked)
 	{
-		initSocket();
+		if (!udpSocketExists)
+		{
+			initUdpSocket();
 
-		connect(udpSocket, &QUdpSocket::readyRead,
-			this, &Server::readPendingDatagrams);
 
-		udpSocketExists = true;
+
+
+			connect(udpSocket, &QUdpSocket::readyRead,
+				this, &Server::readPendingDatagrams);
+
+			udpSocketExists = true;
+		}
+		this->setWindowTitle("Server - Listening");
+	}
+	else
+	{
+		QMessageBox msgBox;
+		msgBox.setIcon(QMessageBox::Warning);
+		msgBox.setText("Pick a file to save to first.");
+		msgBox.setWindowTitle("Warning");
+		msgBox.exec();
 	}
 }
 
@@ -73,5 +107,7 @@ void Server::stopListening()
 
 		delete udpSocket;
 		udpSocketExists = false;
+
+		this->setWindowTitle("Server");
 	}
 }

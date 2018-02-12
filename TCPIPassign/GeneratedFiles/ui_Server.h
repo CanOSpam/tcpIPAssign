@@ -159,9 +159,9 @@ public:
         label_3->setText(QApplication::translate("Server", "File to Save to", Q_NULLPTR));
         pickFileButton->setText(QApplication::translate("Server", "Pick File", Q_NULLPTR));
         label_7->setText(QApplication::translate("Server", "Port", Q_NULLPTR));
-        portEdit->setText(QApplication::translate("Server", "0000", Q_NULLPTR));
+        portEdit->setText(QApplication::translate("Server", "5570", Q_NULLPTR));
         label_6->setText(QApplication::translate("Server", "Receive From", Q_NULLPTR));
-        ipEdit->setText(QApplication::translate("Server", "000.000.000.000", Q_NULLPTR));
+        ipEdit->setText(QApplication::translate("Server", "127.0.0.1", Q_NULLPTR));
         startButton->setText(QApplication::translate("Server", "Start Listening", Q_NULLPTR));
         stopButton->setText(QApplication::translate("Server", "Stop Listening", Q_NULLPTR));
     } // retranslateUi
