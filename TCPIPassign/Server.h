@@ -23,6 +23,7 @@ public slots:
 	void readPendingDatagrams();
 	void startListening();
 	void stopListening();
+	void parseTcp();
 
 private:
 	Ui::Server *ui;

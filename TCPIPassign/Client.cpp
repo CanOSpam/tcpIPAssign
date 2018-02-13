@@ -101,6 +101,7 @@ void Client::sendFile()
 			this->setWindowTitle("multi-client TCP Serving mode");
 
 			connect(server, &QTcpServer::newConnection, this, &Client::connected);
+			
 
 			if (!server->listen(QHostAddress::Any, ui->portEdit->text().toInt()))
 			{
@@ -142,12 +143,11 @@ int Client::filesize(const char* filename)
 void Client::connected()
 {
 	// need to grab the socket
-	QTcpSocket *socket = server->nextPendingConnection();
+	QTcpSocket *clientConnection = server->nextPendingConnection();
+	connect(clientConnection, &QAbstractSocket::disconnected,
+		clientConnection, &QObject::deleteLater);
 
-	socket->write("Hello client\r\n");
-	socket->flush();
 
-	socket->waitForBytesWritten(3000);
-
-	socket->close();
+	clientConnection->write("hello");
+	clientConnection->disconnectFromHost();
 }

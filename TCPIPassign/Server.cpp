@@ -8,6 +8,7 @@ Server::Server(QWidget *parent)
 {
 	ui->setupUi(this);
 
+	tcpSocket = new QTcpSocket(this);
 
 	udpSocketExists = false;
 	filePicked = false;
@@ -15,6 +16,7 @@ Server::Server(QWidget *parent)
 	connect(ui->pickFileButton, &QPushButton::clicked, this, &Server::pickAFile);
 	connect(ui->startButton, &QPushButton::clicked, this, &Server::startListening);
 	connect(ui->stopButton, &QPushButton::clicked, this, &Server::stopListening);
+	connect(tcpSocket, &QIODevice::readyRead, this, &Server::parseTcp);
 }
 
 
@@ -46,8 +48,6 @@ void Server::initUdpSocket()
 
 void Server::readPendingDatagrams()
 {
-	
-
 	if (inputFile.is_open())
 	{
 		while (udpSocket->hasPendingDatagrams()) {
@@ -91,14 +91,11 @@ void Server::startListening()
 		//Enable TCP listening
 		else if (ui->tcpUdpComboBox->currentText() == "TCP")
 		{
-			QMessageBox msgBox;
-			msgBox.setIcon(QMessageBox::Warning);
-			msgBox.setText("Pick a file to save to first.");
-			msgBox.setWindowTitle("Warning");
-			msgBox.exec();
-
-			tcpSocket = new QTcpSocket(this);
+			
 			tcpSocket->connectToHost(QHostAddress::Any, ui->portEdit->text().toInt());
+			
+			qDebug() << "connected to host";
+			qDebug() << tcpSocket->isOpen();
 		}
 	}
 	else
@@ -123,4 +120,11 @@ void Server::stopListening()
 	}
 	
 	this->setWindowTitle("Server");
+}
+
+void Server::parseTcp()
+{
+	qDebug() << "------";
+	qDebug() << tcpSocket->readAll();
+	qDebug() << "------";
 }
