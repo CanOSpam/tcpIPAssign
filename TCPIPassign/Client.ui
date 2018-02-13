@@ -246,7 +246,7 @@
    <item>
     <widget class="QPushButton" name="sendButton">
      <property name="text">
-      <string>Send</string>
+      <string>Send UDP / Start TCP Server</string>
      </property>
     </widget>
    </item>

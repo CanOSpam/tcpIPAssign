@@ -86,6 +86,7 @@ void Client::sendFile()
 			}
 
 			ui->sendProgress->setValue(100);
+			inputFile.close();
 			delete udpSocket;
 		}
 		else if(ui->tcpUdpComboBox->currentText() == "TCP")
@@ -144,10 +145,24 @@ void Client::connected()
 {
 	// need to grab the socket
 	QTcpSocket *clientConnection = server->nextPendingConnection();
-	connect(clientConnection, &QAbstractSocket::disconnected,
-		clientConnection, &QObject::deleteLater);
 
+	float bufferSize = ui->bytesPerPacketEdit->text().toInt();
+	std::ifstream inputFile;
+	inputFile.open(fileName.toStdString());
+	
+	while (inputFile.good())
+	{
+		char * sendBuffer = new char[bufferSize];
+		memset(sendBuffer, '\0', bufferSize);
+		inputFile.read(sendBuffer, bufferSize - 1);
 
-	clientConnection->write("hello");
+		for (int i = 0; i < ui->numPacketsEdit->text().toInt(); i++)
+		{
+			clientConnection->write(sendBuffer);
+		}
+		delete sendBuffer;
+	}
+
 	clientConnection->disconnectFromHost();
+	inputFile.close();
 }

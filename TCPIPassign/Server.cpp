@@ -92,7 +92,7 @@ void Server::startListening()
 		else if (ui->tcpUdpComboBox->currentText() == "TCP")
 		{
 			
-			tcpSocket->connectToHost(QHostAddress::Any, ui->portEdit->text().toInt());
+			tcpSocket->connectToHost(ui->ipEdit->text(), ui->portEdit->text().toInt());
 			
 			qDebug() << "connected to host";
 			qDebug() << tcpSocket->isOpen();
@@ -124,7 +124,10 @@ void Server::stopListening()
 
 void Server::parseTcp()
 {
-	qDebug() << "------";
-	qDebug() << tcpSocket->readAll();
-	qDebug() << "------";
+	inputFile.open(fileName.toStdString(), std::ios_base::app);
+	if (inputFile.is_open())
+	{
+		inputFile << tcpSocket->readAll().toStdString();
+	}
+	inputFile.close();
 }
