@@ -35,7 +35,7 @@ public:
     QVBoxLayout *verticalLayout_3;
     QSpacerItem *verticalSpacer_5;
     QLabel *label_5;
-    QComboBox *comboBox;
+    QComboBox *tcpUdpComboBox;
     QSpacerItem *verticalSpacer_4;
     QVBoxLayout *verticalLayout_2;
     QSpacerItem *verticalSpacer_2;
@@ -81,11 +81,11 @@ public:
 
         verticalLayout_3->addWidget(label_5);
 
-        comboBox = new QComboBox(Client);
-        comboBox->setObjectName(QStringLiteral("comboBox"));
-        comboBox->setMaxVisibleItems(2);
+        tcpUdpComboBox = new QComboBox(Client);
+        tcpUdpComboBox->setObjectName(QStringLiteral("tcpUdpComboBox"));
+        tcpUdpComboBox->setMaxVisibleItems(2);
 
-        verticalLayout_3->addWidget(comboBox);
+        verticalLayout_3->addWidget(tcpUdpComboBox);
 
         verticalSpacer_4 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
@@ -219,8 +219,8 @@ public:
     {
         Client->setWindowTitle(QApplication::translate("Client", "Client", Q_NULLPTR));
         label_5->setText(QApplication::translate("Client", "Protocol", Q_NULLPTR));
-        comboBox->clear();
-        comboBox->insertItems(0, QStringList()
+        tcpUdpComboBox->clear();
+        tcpUdpComboBox->insertItems(0, QStringList()
          << QApplication::translate("Client", "TCP", Q_NULLPTR)
          << QApplication::translate("Client", "UDP", Q_NULLPTR)
         );

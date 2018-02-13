@@ -19,16 +19,20 @@ class Server : public QWidget
 public:
 	explicit Server(QWidget *parent = 0);
 
+public slots:
+	void readPendingDatagrams();
+	void startListening();
+	void stopListening();
+
 private:
 	Ui::Server *ui;
 	QString fileName;
 	QUdpSocket *udpSocket;
 	bool udpSocketExists;
 	bool filePicked;
+	QTcpSocket *tcpSocket;
+	std::ofstream inputFile;
 
 	void pickAFile();
 	void initUdpSocket();
-	void readPendingDatagrams();
-	void startListening();
-	void stopListening();
 };

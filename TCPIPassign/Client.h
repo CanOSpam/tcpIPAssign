@@ -17,11 +17,16 @@ class Client : public QWidget
 public:
 	explicit Client(QWidget *parent = 0);
 
+public slots:
+	void connected();
+
 private:
 	Ui::Client *ui;
 	QString fileName;
 	QUdpSocket *udpSocket;
+	QTcpServer *server;
 	bool filePicked;
+
 
 	void pickAFile();
 	void initUdpSocket();

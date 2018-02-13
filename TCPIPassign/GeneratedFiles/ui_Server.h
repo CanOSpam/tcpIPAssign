@@ -31,7 +31,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout_3;
     QLabel *label_5;
-    QComboBox *comboBox;
+    QComboBox *tcpUdpComboBox;
     QVBoxLayout *verticalLayout_4;
     QLabel *label_3;
     QPushButton *pickFileButton;
@@ -63,11 +63,11 @@ public:
 
         verticalLayout_3->addWidget(label_5);
 
-        comboBox = new QComboBox(Server);
-        comboBox->setObjectName(QStringLiteral("comboBox"));
-        comboBox->setMaxVisibleItems(2);
+        tcpUdpComboBox = new QComboBox(Server);
+        tcpUdpComboBox->setObjectName(QStringLiteral("tcpUdpComboBox"));
+        tcpUdpComboBox->setMaxVisibleItems(2);
 
-        verticalLayout_3->addWidget(comboBox);
+        verticalLayout_3->addWidget(tcpUdpComboBox);
 
 
         horizontalLayout->addLayout(verticalLayout_3);
@@ -151,8 +151,8 @@ public:
     {
         Server->setWindowTitle(QApplication::translate("Server", "Server", Q_NULLPTR));
         label_5->setText(QApplication::translate("Server", "Protocol", Q_NULLPTR));
-        comboBox->clear();
-        comboBox->insertItems(0, QStringList()
+        tcpUdpComboBox->clear();
+        tcpUdpComboBox->insertItems(0, QStringList()
          << QApplication::translate("Server", "TCP", Q_NULLPTR)
          << QApplication::translate("Server", "UDP", Q_NULLPTR)
         );

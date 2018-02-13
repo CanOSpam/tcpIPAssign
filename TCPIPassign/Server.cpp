@@ -26,6 +26,11 @@ void Server::pickAFile()
 		"",
 		tr("Text data (*.txt)"));
 	filePicked = true;
+
+	std::ofstream clearer;
+	clearer.open(fileName.toStdString(), std::ofstream::out | std::ofstream::trunc);
+	clearer.close();
+
 }
 
 
@@ -33,6 +38,8 @@ void Server::initUdpSocket()
 {
 	udpSocket = new QUdpSocket(this);
 	udpSocket->bind(QHostAddress::Any, ui->portEdit->text().toInt());
+
+	inputFile.open(fileName.toStdString(), std::ios_base::app);
 }
 
 
@@ -40,8 +47,6 @@ void Server::initUdpSocket()
 void Server::readPendingDatagrams()
 {
 	
-	std::ofstream inputFile;
-	inputFile.open(fileName.toStdString(), std::ios_base::app);
 
 	if (inputFile.is_open())
 	{
@@ -65,34 +70,40 @@ void Server::readPendingDatagrams()
 		msgBox.setWindowTitle("FILE ERROR");
 		msgBox.exec();
 	}
-	inputFile.close();
+	
 }
 
 void Server::startListening()
 {
 	if (filePicked)
 	{
-		if (!udpSocketExists)
+		//Enable UDP listening
+		if (!udpSocketExists && ui->tcpUdpComboBox->currentText() == "UDP")
 		{
 			initUdpSocket();
-
-
-
 
 			connect(udpSocket, &QUdpSocket::readyRead,
 				this, &Server::readPendingDatagrams);
 
 			udpSocketExists = true;
+			this->setWindowTitle("Server - Listening - UDP");
 		}
-		this->setWindowTitle("Server - Listening");
+		//Enable TCP listening
+		else if (ui->tcpUdpComboBox->currentText() == "TCP")
+		{
+			QMessageBox msgBox;
+			msgBox.setIcon(QMessageBox::Warning);
+			msgBox.setText("Pick a file to save to first.");
+			msgBox.setWindowTitle("Warning");
+			msgBox.exec();
+
+			tcpSocket = new QTcpSocket(this);
+			tcpSocket->connectToHost(QHostAddress::Any, ui->portEdit->text().toInt());
+		}
 	}
 	else
 	{
-		QMessageBox msgBox;
-		msgBox.setIcon(QMessageBox::Warning);
-		msgBox.setText("Pick a file to save to first.");
-		msgBox.setWindowTitle("Warning");
-		msgBox.exec();
+		this->setWindowTitle("Server - Listening - TCP");
 	}
 }
 
@@ -105,7 +116,11 @@ void Server::stopListening()
 
 		delete udpSocket;
 		udpSocketExists = false;
-
-		this->setWindowTitle("Server");
 	}
+	if (inputFile.is_open())
+	{
+		inputFile.close();
+	}
+	
+	this->setWindowTitle("Server");
 }
