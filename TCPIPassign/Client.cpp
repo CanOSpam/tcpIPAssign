@@ -1,30 +1,31 @@
+/*------------------------------------------------------------------------------------------------------------------
+-- SOURCE FILE: Client.cpp - A window that manages sending data over TCP and UDP
+--
+-- PROGRAM: TCPIPassign
+--
+-- FUNCTIONS:
+-- void pickAFile (void)
+-- void initUdpSocket (void)
+-- void sendFile (void)
+-- int fileSize (char* filename)
+-- void connected (void)
+--
+-- DATE: February 13, 2017
+--
+-- REVISIONS: None
+--
+-- DESIGNER: Tim Bruecker
+--
+-- PROGRAMMER: Tim Bruecker
+--
+-- NOTES:
+-- The program initializes a UDP or TCP server. If a UDP server, it waits for the user to click send data, then
+-- send the data to the waiting receiver. If a TCP server is started, the server waits for a connection, then sends
+-- the data to the receiver.
+----------------------------------------------------------------------------------------------------------------------*/
+
 #include "Client.h"
 
-
-#include <QDebug>
-//The Client sends data
-
-/*
-//TEMPORARY INCLUDES FOR PROGRESS BAR TESTING
-#include <thread>
-#include <chrono>
-
-//USE THIS FOR PROGRESS BAR
-for (int i = 0; i <= 100; i++)
-{
-	std::this_thread::sleep_for(std::chrono::milliseconds(100));
-	ui->sendProgress->setValue(i);
-
-	if (i == 50)
-	{
-		//THIS PAUSES THE PROGRESS (halts thread until msgbox closed)
-		QMessageBox msgBox;
-		msgBox.setText("Click OK to continue.");
-		msgBox.setWindowTitle("Sending Done");
-		msgBox.exec();
-	}
-}
-*/
 Client::Client(QWidget *parent)
 	: QWidget(parent)
 	, ui(new Ui::Client)
@@ -37,6 +38,24 @@ Client::Client(QWidget *parent)
 	connect(ui->sendButton, &QPushButton::clicked, this, &Client::sendFile);
 }
 
+/*------------------------------------------------------------------------------------------------------------------
+-- FUNCTION: pickAFile
+--
+-- DATE: February 13, 2017
+--
+-- REVISIONS: None
+--
+-- DESIGNER: Tim Bruecker
+--
+-- PROGRAMMER: Tim Bruecker
+--
+-- INTERFACE: void pickAFile (void)
+--
+-- RETURNS: void.
+--
+-- NOTES:
+-- Call this function to use the QFileDialog static function to get a file location to write data from.
+----------------------------------------------------------------------------------------------------------------------*/
 void Client::pickAFile()
 {
 	fileName = QFileDialog::getOpenFileName(this, tr("Open"),
@@ -45,12 +64,51 @@ void Client::pickAFile()
 	filePicked = true;
 }
 
+/*------------------------------------------------------------------------------------------------------------------
+-- FUNCTION: initUdpSocket
+--
+-- DATE: February 13, 2017
+--
+-- REVISIONS: None
+--
+-- DESIGNER: Tim Bruecker
+--
+-- PROGRAMMER: Tim Bruecker
+--
+-- INTERFACE: void initUdpSocket (void)
+--
+-- RETURNS: void.
+--
+-- NOTES:
+-- Call this function to create a new QUdpSocket. This function will also bind the socket.
+----------------------------------------------------------------------------------------------------------------------*/
 void Client::initUdpSocket()
 {
 	udpSocket = new QUdpSocket(this);
 	udpSocket->bind(QHostAddress::Any, ui->portEdit->text().toInt());
 }
 
+/*------------------------------------------------------------------------------------------------------------------
+-- FUNCTION: sendFile
+--
+-- DATE: February 13, 2017
+--
+-- REVISIONS: None
+--
+-- DESIGNER: Tim Bruecker
+--
+-- PROGRAMMER: Tim Bruecker
+--
+-- INTERFACE: void sendFile (void)
+--
+-- RETURNS: void.
+--
+-- NOTES:
+-- sendFile is the meat of the sender program. it first ensures that a sending file has been chosen, then opens either TCP
+-- or UDP mode. In both modes a timer runs as data is tranferred. In UDP mode a progress bar is also displayed showing the
+-- file transfer progress. UDP mode sends data dumbly when it is commanded to by the user, while TCP mode waits for an inbound
+-- connection and transfers data to any newly connected receiver.
+----------------------------------------------------------------------------------------------------------------------*/
 void Client::sendFile()
 {
 	if (filePicked)
@@ -144,14 +202,54 @@ void Client::sendFile()
 	
 }
 
-//From https://stackoverflow.com/questions/5840148/how-can-i-get-a-files-size-in-c
-//Author: Spyros, Editor: tmanthey
+/*------------------------------------------------------------------------------------------------------------------
+-- FUNCTION: fileSize
+--
+-- DATE: February 13, 2017
+--
+-- REVISIONS: None
+--
+-- DESIGNER: Spyros
+--
+-- PROGRAMMER: Spyros, tmanthey, Tim Bruecker
+--
+-- INTERFACE: int fileSize (const char* filename)
+--
+-- PARAMS: filename - A file to measure the size of.
+--
+-- RETURNS: filesize - Size of the file in bytes.
+--
+-- NOTES:
+-- Call this function to measure the size of a file in bytes. 
+-- Code from: https://stackoverflow.com/questions/5840148/how-can-i-get-a-files-size-in-c
+----------------------------------------------------------------------------------------------------------------------*/
 int Client::filesize(const char* filename)
 {
 	std::ifstream in(filename, std::ifstream::ate | std::ifstream::binary);
 	return in.tellg();
 }
 
+
+
+/*------------------------------------------------------------------------------------------------------------------
+-- FUNCTION: connected
+--
+-- DATE: February 13, 2017
+--
+-- REVISIONS: None
+--
+-- DESIGNER: Tim Bruecker
+--
+-- PROGRAMMER: Tim Bruecker
+--
+-- INTERFACE: void connected (void)
+--
+-- RETURNS: void.
+--
+-- NOTES:
+-- This function is called by a signal whenever a new TCP connection is established. The function sends all the data
+-- to the receiver, and times the amount of time it took to put the data on the stream.
+----------------------------------------------------------------------------------------------------------------------*/
 void Client::connected()
 {
 	// need to grab the socket

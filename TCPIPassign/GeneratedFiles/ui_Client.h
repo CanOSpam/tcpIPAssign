@@ -235,7 +235,7 @@ public:
         label_6->setText(QApplication::translate("Client", "Destination", Q_NULLPTR));
         ipEdit->setText(QApplication::translate("Client", "127.0.0.1", Q_NULLPTR));
         sendProgress->setFormat(QApplication::translate("Client", "%p%", Q_NULLPTR));
-        sendButton->setText(QApplication::translate("Client", "Send", Q_NULLPTR));
+        sendButton->setText(QApplication::translate("Client", "Send UDP / Start TCP Server", Q_NULLPTR));
     } // retranslateUi
 
 };
