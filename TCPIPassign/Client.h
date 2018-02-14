@@ -5,6 +5,8 @@
 #include <QtNetwork>
 
 #include <fstream>
+#include <chrono>
+#include <ctime>
 
 #include <QMessageBox>
 

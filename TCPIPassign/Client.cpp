@@ -68,6 +68,9 @@ void Client::sendFile()
 
 			int dataSent = 0;
 
+			std::clock_t c_start = std::clock();
+			auto t_start = std::chrono::high_resolution_clock::now();
+
 
 			while (inputFile.good())
 			{
@@ -84,6 +87,14 @@ void Client::sendFile()
 
 				delete sendBuffer;
 			}
+
+			std::clock_t c_end = std::clock();
+			auto t_end = std::chrono::high_resolution_clock::now();
+
+
+			double tempTime = std::chrono::duration<double, std::milli>(t_end - t_start).count();
+			QString tempStr("sent, took: " + QString::number(tempTime) + " ms");
+			this->setWindowTitle(tempStr);
 
 			ui->sendProgress->setValue(100);
 			inputFile.close();
@@ -149,6 +160,9 @@ void Client::connected()
 	float bufferSize = ui->bytesPerPacketEdit->text().toInt();
 	std::ifstream inputFile;
 	inputFile.open(fileName.toStdString());
+
+	std::clock_t c_start = std::clock();
+	auto t_start = std::chrono::high_resolution_clock::now();
 	
 	while (inputFile.good())
 	{
@@ -162,6 +176,14 @@ void Client::connected()
 		}
 		delete sendBuffer;
 	}
+
+	std::clock_t c_end = std::clock();
+	auto t_end = std::chrono::high_resolution_clock::now();
+
+
+	double tempTime = std::chrono::duration<double, std::milli>(t_end - t_start).count();
+	QString tempStr("sent, took: " + QString::number(tempTime) + " ms");
+	this->setWindowTitle(tempStr);
 
 	clientConnection->disconnectFromHost();
 	inputFile.close();
