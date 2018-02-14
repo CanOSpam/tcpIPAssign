@@ -3,11 +3,6 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-# Test files
-testReceive.txt
-testSendBig.txt
-testSendMedium.txt
-
 # User-specific files
 *.suo
 *.user
